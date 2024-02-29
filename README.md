@@ -8,6 +8,9 @@ Supports CommonJS and ES Module import type.
 
 Please install the [Polkadot.js extension](https://polkadot.js.org/extension/) in the browser.
 
+
+<a href="https://cessproject.github.io/cess-js-sdk-frontend/">Online Demo</a>
+
 ## Installation
 
 ```bash
