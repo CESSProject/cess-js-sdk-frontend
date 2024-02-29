@@ -1,5 +1,6 @@
 {
   "name": "cess-js-sdk-react-demo",
+  "homepage": "https://www.cess.cloud/cess-js-sdk-frontend/",
   "version": "0.1.1",
   "private": true,
   "dependencies": {
