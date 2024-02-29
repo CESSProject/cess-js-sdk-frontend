@@ -159,6 +159,7 @@ function App() {
 						<div className="containner222">
 							<Routes>
 								<Route path="/" element={<Home />} />
+								<Route path="/cess-js-sdk-frontend/" element={<Home />} />
 								<Route path="/authorize" element={<Authorize />} />
 								<Route path="/extension" element={<Extension />} />
 								<Route path="/bucket" element={<Bucket />} />
