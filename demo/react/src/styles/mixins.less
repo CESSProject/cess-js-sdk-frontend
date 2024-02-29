@@ -1,0 +1,85 @@
+//-----------------此处定义公共的类样式 ------------------------
+
+//页面标题
+.page-title {
+  text-align: center;
+}
+
+.descriptions {
+  margin-bottom: 10px;
+}
+
+//详情表述标题样式
+.descriptions-title {
+  flex: auto;
+  overflow: hidden;
+  color: rgba(0, 0, 0, 0.85);
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 1.5715;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-bottom: 20px;
+  &-small{
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: 30px;
+  }
+  &-special{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+    &-box{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      >span{
+        display: inline-block;
+        margin-right: 1em;
+        font-weight: bold;
+        font-size: 16px;
+      }
+      &:after{
+        position: relative;
+        top: 50%;
+        width: 88%;
+        border-top: 1px solid red;
+        border-top-color: inherit;
+        border-bottom: 0;
+        transform: translateY(50%);
+        content: '';
+      }
+    }
+    .expand-span{
+      width: 30px;
+      margin-right: 10px;
+    }
+  }
+}
+
+// 放开antd 的form 的label高度
+.special-label{
+  //修改特殊表单子项label高度
+  .ant-form-item-label > label{
+    height: unset;
+  }
+}
+
+//底部footer 操作模块
+.footer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  > button:nth-child(2) {
+    margin-left: 20px;
+  }
+  > button:last-child {
+    margin-left: 20px;
+  }
+}
+
+.ant-modal-confirm{
+  top: 400px
+}

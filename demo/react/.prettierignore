@@ -1,0 +1,10 @@
+/build/*
+/node_modules/**
+src/statics
+/public/*
+README.md
+package.json
+yarn.lock
+
+**/*.svg
+**/*.sh

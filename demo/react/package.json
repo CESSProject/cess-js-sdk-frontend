@@ -1,0 +1,85 @@
+{
+  "name": "cess-js-sdk-react-demo",
+  "version": "0.1.1",
+  "private": true,
+  "dependencies": {
+    "@craco/craco": "^6.4.3",
+    "@reduxjs/toolkit": "^1.7.1",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^13.5.0",
+    "antd": "^5.9.2",
+    "cess-js-sdk-frontend": "file:../../",
+    "copy-to-clipboard": "^3.3.1",
+    "craco-less": "^2.0.0",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-app-polyfill": "^3.0.0",
+    "react-barcode": "^1.4.1",
+    "react-dom": "^17.0.2",
+    "react-json-view-lite": "^1.2.1",
+    "react-qrcode": "^0.3.2",
+    "react-redux": "^7.2.6",
+    "react-router-dom": "^6.2.1",
+    "react-scripts": "5.0.0",
+    "react-syntax-highlighter": "^15.5.0",
+    "react-to-print": "^2.14.7",
+    "redux": "^4.1.2",
+    "redux-logger": "^3.0.6",
+    "styled-components": "^5.3.5",
+    "web-vitals": "^2.1.3"
+  },
+  "scripts": {
+    "start": "cross-env REACT_APP_ENVIRONMENT=development craco start",
+    "build": "cross-env REACT_APP_ENVIRONMENT=production craco build",
+    "build:test": "cross-env REACT_APP_ENVIRONMENT=test craco build",
+    "test": "craco test",
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all",
+      "ie > 9"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version",
+      "ie > 9"
+    ]
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.17.0",
+    "@babel/preset-react": "^7.16.7",
+    "@commitlint/cli": "^16.2.3",
+    "@commitlint/config-conventional": "^16.2.1",
+    "babel-plugin-import": "^1.13.3",
+    "compression-webpack-plugin": "^5.0.1",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.14.0",
+    "eslint-config-babel": "^9.0.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.1",
+    "prettier": "^2.6.2",
+    "uglifyjs-webpack-plugin": "^2.2.0"
+  }
+}
