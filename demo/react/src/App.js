@@ -27,17 +27,18 @@ function App() {
 	const [current, setCurrent] = useState("/");
 	const onClick = e => {
 		setCurrent(e.key);
-		console.log("e.key: ", e.key);
 		navigate(e.key);
 	};
 	useEffect(() => {
 		setInterval(function () {
 			let p = window.location.pathname;
-			if (p == lastCurr) return;
+			if (p == lastCurr){
+				// set the active link blue upon refresh
+				let curr_key = p.replace("/cess-js-sdk-frontend", "");
+				setCurrent(curr_key);
+				return;
+			} 
 			lastCurr = p;
-			let curr_key = p.replace("/cess-js-sdk-frontend", "");
-			console.log("useEffect: ", lastCurr);
-			setCurrent(curr_key);
 		}, 300);
 	}, []);
 
