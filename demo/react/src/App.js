@@ -101,42 +101,42 @@ function App() {
 						defaultSelectedKeys={["/"]}
 						items={[
 							{
-								key: "/cess-js-sdk-frontend",
+								key: "/",
 								icon: <HomeOutlined />,
 								label: "Home"
 							},
 							{
-								key: "/cess-js-sdk-frontend/extension",
+								key: "/extension",
 								icon: <ChromeOutlined />,
 								label: "Extension-dapp"
 							},
 							{
-								key: "/cess-js-sdk-frontend/authorize",
+								key: "/authorize",
 								icon: <UserSwitchOutlined />,
 								label: "Authorize"
 							},
 							{
-								key: "/cess-js-sdk-frontend/bucket",
+								key: "/bucket",
 								icon: <FolderOutlined />,
 								label: "Bucket"
 							},
 							{
-								key: "/cess-js-sdk-frontend/space",
+								key: "/space",
 								icon: <DatabaseOutlined />,
 								label: "Space"
 							},
 							{
-								key: "/cess-js-sdk-frontend/file",
+								key: "/file",
 								icon: <UploadOutlined />,
 								label: "File"
 							},
 							{
-								key: "/cess-js-sdk-frontend/keyring",
+								key: "/keyring",
 								icon: <KeyOutlined />,
 								label: "Keyring"
 							},
 							{
-								key: "/cess-js-sdk-frontend/util",
+								key: "/util",
 								icon: <ToolOutlined />,
 								label: "Util"
 							}
@@ -159,14 +159,14 @@ function App() {
 						<div className="containner222">
 							<Routes>
 								{/* <Route path="/" element={<Home />} /> */}
-								<Route path="/cess-js-sdk-frontend/" element={<Home />} />
-								<Route path="/cess-js-sdk-frontend/authorize" element={<Authorize />} />
-								<Route path="/cess-js-sdk-frontend/extension" element={<Extension />} />
-								<Route path="/cess-js-sdk-frontend/bucket" element={<Bucket />} />
-								<Route path="/cess-js-sdk-frontend/space" element={<Space />} />
-								<Route path="/cess-js-sdk-frontend/file" element={<File />} />
-								<Route path="/cess-js-sdk-frontend/keyring" element={<Keyring />} />
-								<Route path="/cess-js-sdk-frontend/util" element={<Util />} />
+								<Route path="/" element={<Home />} />
+								<Route path="/authorize" element={<Authorize />} />
+								<Route path="/extension" element={<Extension />} />
+								<Route path="/bucket" element={<Bucket />} />
+								<Route path="/space" element={<Space />} />
+								<Route path="/file" element={<File />} />
+								<Route path="/keyring" element={<Keyring />} />
+								<Route path="/util" element={<Util />} />
 
 								{/* <Route path="/users" element={<Users />} />
 									<Route path="/operation" element={<Operation />} />

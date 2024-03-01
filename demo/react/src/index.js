@@ -11,7 +11,7 @@ import enGB from "antd/lib/locale/en_GB";
 
 ReactDOM.render(
 	<ConfigProvider locale={enGB}>
-		<BrowserRouter>
+		<BrowserRouter basename="/cess-js-sdk-frontend">
 			<App />
 		</BrowserRouter>
 	</ConfigProvider>,
