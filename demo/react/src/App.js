@@ -27,6 +27,7 @@ function App() {
 	const [current, setCurrent] = useState("/");
 	const onClick = e => {
 		setCurrent(e.key);
+		console.log("e.key: ", e.key);
 		navigate(e.key);
 	};
 	useEffect(() => {
@@ -34,7 +35,8 @@ function App() {
 			let p = window.location.pathname;
 			if (p == lastCurr) return;
 			lastCurr = p;
-			// setCurrent(p);
+			console.log("useEffect: ", lastCurr);
+			setCurrent(lastCurr);
 		}, 300);
 	}, []);
 
