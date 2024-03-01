@@ -1,4 +1,4 @@
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import "react-app-polyfill/ie9";
 import "react-app-polyfill/stable";
 import { ConfigProvider } from "antd";
@@ -11,9 +11,9 @@ import enGB from "antd/lib/locale/en_GB";
 
 ReactDOM.render(
 	<ConfigProvider locale={enGB}>
-		<BrowserRouter basename="/cess-js-sdk-frontend">
+		<HashRouter basename="/cess-js-sdk-frontend">
 			<App />
-		</BrowserRouter>
+		</HashRouter>
 	</ConfigProvider>,
 	document.getElementById("root")
 );
