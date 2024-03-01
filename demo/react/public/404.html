@@ -10,7 +10,7 @@
             var l = window.location;
             var newPath = l.pathname.split('/').slice(pathSegmentsToKeep).join('/').replace(/&/g, '~and~');
             var newUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') +
-                '/cess-js-sdk-frontend/?/' + newPath +
+                '/cess-js-sdk-frontend/' + newPath +
                 (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
                 l.hash;
 
