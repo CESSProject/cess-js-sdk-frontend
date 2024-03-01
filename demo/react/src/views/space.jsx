@@ -180,7 +180,7 @@ console.log(ret);
                                                 <Input type="number" value={buyGB} onChange={(e) => setBuyGB(e.target.value)} ></Input><br /><br />
                                             </div>
                                             <Button disabled={spaceInfo ? false : true} type="primary" onClick={() => handleEvent('expansionSpace')}>ExpansionSpace</Button>
-                                            <div><strong>Note:</strong>The ExpansionSpace button is enabled only if the account has previously purchased space.</div>
+                                            <div><strong>Note:</strong> The ExpansionSpace button is enabled only if the account has previously purchased space.</div>
                                         </div>
                                     </div>,
                                 },
@@ -196,6 +196,7 @@ console.log(ret);
                                         </div>
                                         <div className="top20">
                                             <Button disabled={spaceInfo ? false : true} type="primary" onClick={() => handleEvent('renewalSpace')}>RenewalSpace</Button>
+                                            <div><strong>Note:</strong> The RenewalSpace button is enabled only if the account has previously purchased space.</div>
                                         </div>
                                     </div>,
                                 },
