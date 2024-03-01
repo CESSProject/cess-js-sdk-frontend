@@ -180,6 +180,7 @@ console.log(ret);
                                                 <Input type="number" value={buyGB} onChange={(e) => setBuyGB(e.target.value)} ></Input><br /><br />
                                             </div>
                                             <Button disabled={spaceInfo ? false : true} type="primary" onClick={() => handleEvent('expansionSpace')}>ExpansionSpace</Button>
+                                            <div><strong>Note:</strong>The ExpansionSpace button is enabled only if the account has previously purchased space.</div>
                                         </div>
                                     </div>,
                                 },
