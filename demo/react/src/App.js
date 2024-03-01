@@ -35,8 +35,9 @@ function App() {
 			let p = window.location.pathname;
 			if (p == lastCurr) return;
 			lastCurr = p;
+			let curr_key = p.replace("/cess-js-sdk-frontend", "");
 			console.log("useEffect: ", lastCurr);
-			setCurrent(lastCurr);
+			setCurrent(curr_key);
 		}, 300);
 	}, []);
 
