@@ -34,7 +34,7 @@ function App() {
 			let p = window.location.pathname;
 			if (p == lastCurr) return;
 			lastCurr = p;
-			setCurrent(p);
+			// setCurrent(p);
 		}, 300);
 	}, []);
 
