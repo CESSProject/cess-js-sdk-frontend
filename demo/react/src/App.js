@@ -32,13 +32,19 @@ function App() {
 	useEffect(() => {
 		setInterval(function () {
 			let p = window.location.pathname;
+			let curr_key = p.replace("/cess-js-sdk-frontend", "");
+			
+			if (curr_key.length == 0) {
+				curr_key = "/";
+			}
+
 			if (p == lastCurr){
 				// set the active link blue upon refresh
-				let curr_key = p.replace("/cess-js-sdk-frontend", "");
 				setCurrent(curr_key);
 				return;
 			} 
 			lastCurr = p;
+			setCurrent(curr_key);
 		}, 300);
 	}, []);
 

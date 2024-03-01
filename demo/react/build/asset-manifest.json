@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/cess-js-sdk-frontend/static/css/main.e3db530d.css",
-    "main.js": "/cess-js-sdk-frontend/static/js/main.62e59c56.js",
+    "main.js": "/cess-js-sdk-frontend/static/js/main.eb6b8d78.js",
     "static/js/988.2bd7f8a9.chunk.js": "/cess-js-sdk-frontend/static/js/988.2bd7f8a9.chunk.js",
     "index.html": "/cess-js-sdk-frontend/index.html",
     "main.e3db530d.css.map": "/cess-js-sdk-frontend/static/css/main.e3db530d.css.map"
   },
   "entrypoints": [
     "static/css/main.e3db530d.css",
-    "static/js/main.62e59c56.js"
+    "static/js/main.eb6b8d78.js"
   ]
 }
