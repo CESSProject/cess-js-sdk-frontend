@@ -3,7 +3,7 @@
   "author": "CESS <hello@cess.cloud>",
   "homepage": "https://www.cess.cloud/cess-js-sdk-frontend",
   "license": "MIT",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A js-sdk for Cess Project with file storage",
   "main": "dist/index.js",
   "type":"module",
