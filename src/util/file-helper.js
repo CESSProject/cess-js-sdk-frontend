@@ -96,10 +96,10 @@ function saveFile(blob, name) {
     return console.log("blob is null");
   }
   let a = document.createElement("a");
-  a.href = window?.URL?.createObjectURL(blob);
+  a.href = window?.URL?.createObjectURL(blob);//because window is null in the next.js
   a.download = name;
   document.body.appendChild(a);
   a.click();
   a.remove();
-  window?.URL?.revokeObjectURL(blob);
+  window?.URL?.revokeObjectURL(blob);//because window is null in the next.js
 }
