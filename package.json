@@ -15,7 +15,6 @@
   "scripts": {
     "fmt": "prettier --write .",
     "build": "esbuild ./src/index.js --bundle --minify --format=esm --outfile=./dist/index.js",
-    "build2": "esbuild ./src/index-iife.js --bundle --format=iife --outfile=./demo/js/cess-sdk.js",
     "test:types": "ts-node src/tests/types.ts",
     "examples": "ts-node src/examples/index.ts",
     "validate": "npm run fmt && npm run lint && npm run test:types"
