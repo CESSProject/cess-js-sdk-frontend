@@ -92,6 +92,9 @@ function saveFile(blob, name) {
   // if (!(blob instanceof Blob)) {
   //   blob = arrayBufferToBlob(blob);
   // }
+  if (typeof window == 'undefined') {
+    return;
+  }
   if (!blob) {
     return console.log("blob is null");
   }
