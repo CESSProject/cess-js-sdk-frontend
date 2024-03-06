@@ -89,20 +89,19 @@ export async function upload(url, file, header, log, progressCb) {
 }
 function saveFile(blob, name) {
   // note: commented the following because `arrayBufferToBlob()` is not a valid function.
-  // if (!(blob instanceof Blob)) {
-  //   blob = arrayBufferToBlob(blob);
+  if (!(blob instanceof Blob)) {
+    blob = arrayBufferToBlob(blob);
+  }
+  // if (!blob) {
+  //   return console.log("blob is null");
   // }
-  if (typeof window == 'undefined') {
-    return;
+  if (typeof window != 'undefined') {
+    let a = document.createElement("a");
+    a.href = window?.URL?.createObjectURL(blob);//because window is null in the next.js
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    window?.URL?.revokeObjectURL(blob);//because window is null in the next.js
   }
-  if (!blob) {
-    return console.log("blob is null");
-  }
-  let a = document.createElement("a");
-  a.href = window?.URL?.createObjectURL(blob);//because window is null in the next.js
-  a.download = name;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-  window?.URL?.revokeObjectURL(blob);//because window is null in the next.js
 }
