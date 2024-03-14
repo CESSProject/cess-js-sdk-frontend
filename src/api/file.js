@@ -9,13 +9,9 @@ import { hexToString } from "@polkadot/util";
 import { formatterSize } from "../util/formatter";
 
 export default class File extends ControlBase {
-  constructor(api, keyring, gatewayURL, isDebug = false) {
+  constructor(api, keyring, gatewayURL = "http://deoss-pub-gateway.cess.cloud/", isDebug = false) {
     super(api, keyring, isDebug);
-    if (!gatewayURL) {
-      gatewayURL = "http://deoss-pub-gateway.cess.cloud/";
-    }
     this.gatewayURL = gatewayURL;
-    // this.gatewayURL="http://172.16.2.191:8080/";
   }
 
   async queryFileListFull(accountId32) {
@@ -105,7 +101,7 @@ export default class File extends ControlBase {
     }
   }
 
-  async uploadFile(accountId32, fileObj, bucketName, progressCb) {
+  async uploadFile(accountId32, fileObj, bucketName, progressCb = null) {
     try {
       const message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
       const { signU8A } = await this.authSign(accountId32, message);

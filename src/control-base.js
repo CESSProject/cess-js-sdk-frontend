@@ -25,28 +25,6 @@ export default class ControlBase {
     }
   };
 
-  // async sign(mnemonic, tx) {
-  //   const api = this.api;
-  //   const pair = this.keyring.createFromUri(mnemonic);
-  //   const { nonce } = await api.query.system.account(pair.address);
-  //   // create the payload
-  //   const signer = api.createType("SignerPayload", {
-  //     method: tx,
-  //     nonce, 
-  //     genesisHash: api.genesisHash,
-  //     blockHash: api.genesisHash,
-  //     runtimeVersion: api.runtimeVersion,
-  //     version: api.extrinsicVersion,
-  //   });
-  //   const { signature } = api
-  //     .createType("ExtrinsicPayload", signer.toPayload(), {
-  //       version: api.extrinsicVersion,
-  //     })
-  //     .sign(pair);
-  //   tx.addSignature(pair.address, signature, signer.toPayload());
-  //   return tx.toHex();
-  // }
-
   async submitTransaction(transaction) {
     /* eslint-disable-next-line no-async-promise-executor */
     return new Promise(async (resolve, reject) => {
