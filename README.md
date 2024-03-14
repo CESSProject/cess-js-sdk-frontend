@@ -2,12 +2,11 @@
 
 ## About
 
-JS-SDK for Cess Project with file storage.
-
-Supports CommonJS and ES Module import type.
+JS-SDK for CESS Project with file storage.
 
 Please install the [Polkadot.js extension](https://polkadot.js.org/extension/) in the browser.
 
+> When used in next.js, it will prompt: ReferenceError: window is not defined,This is due to the Polkadot.js extension, detailed issues can be found at: https://github.com/polkadot-js/extension/issues/1207
 
 <a href="https://cessproject.github.io/cess-js-sdk-frontend/">Online Demo</a>
 
@@ -25,24 +24,15 @@ pnpm add cess-js-sdk-frontend
 ## Example
 
 ```ts
-const { Space, InitAPI, Common, testnetConfig, wellKnownAcct } = require("cess-js-sdk-frontend");
+
+import { Space, InitAPI, Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 async function main() {
-	const { api, keyring } = await InitAPI(testnetConfig);
-	const { addr, mnemonicOrAccountId32 } = wellKnownAcct;
+	const { api, keyring } = await InitAPI(defaultConfig);
+	let addr="";
+	let mnemonicOrAccountId32="";
 
 	const space = new Space(api, keyring);
-  /*
-    const bucket = new Bucket(api, keyring, true);
-    const space2 = new Space2(api, keyring, true);
-    const authorizeHandle = new Authorize(api, keyring, true);
-    const fileHandle = new File(
-      api,
-      keyring,
-      config.gatewayURL,
-      true
-    );
-  */
 	const common = new Common(api, keyring);
 
 	console.log("query userOwnedSpace:");
@@ -81,13 +71,6 @@ main()
 	.finally(() => process.exit());
 ```
 
-More examples are in the [**examples**](./examples) directory.
-
-To run them all, run the command:
-
-```bash
-pnpm examples
-```
 
 All examples connect to the Testnet and use the account `cXgaee2N8E77JJv9gdsGAckv1Qsf3hqWYf7NL4q6ZuQzuAUtB` as default with the following mnemonicOrAccountId32:
 

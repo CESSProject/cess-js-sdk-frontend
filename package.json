@@ -3,21 +3,17 @@
   "author": "CESS <hello@cess.cloud>",
   "homepage": "https://www.cess.cloud",
   "license": "MIT",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "A js-sdk for Cess Project with file storage",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "type":"module",
-  "types": "src/types.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/CESSProject/cess-js-sdk-frontend.git"
   },
   "scripts": {
     "fmt": "prettier --write .",
-    "build": "esbuild ./src/index.js --bundle --minify --format=esm --outfile=./dist/index.js",
-    "test:types": "ts-node src/tests/types.ts",
-    "examples": "ts-node src/examples/index.ts",
-    "validate": "npm run fmt && npm run lint && npm run test:types"
+    "build": "esbuild ./src/index.js --bundle --minify --format=esm --outfile=./dist/index.js"
   },
   "dependencies": {
     "@polkadot/api": "^10.9.1",
@@ -44,7 +40,6 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.0.2",
     "prettier": "^3.0.3",
-    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   },
   "keywords": [
