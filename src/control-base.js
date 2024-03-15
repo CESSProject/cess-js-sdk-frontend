@@ -98,13 +98,13 @@ export default class ControlBase {
     const allAccounts = await web3Accounts();
 
     allAccounts.forEach((t) => {
-      t.setSS58Format(11330);
+      // t.setSS58Format(11330);
       t.address = this.formatAccountId(t.address);
     });
     let account = allAccounts.find((t) => t.address == accountId32);
     if (!account) {
       account = allAccounts[0];
-      console.log("account not found!", allAccounts);
+      console.log("account not found:", allAccounts);
       // return { msg: "account not found!" };
       return {
         signU8A: null,
