@@ -3,7 +3,7 @@
  * @Autor: cess lab
  */
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
-import { stringToHex, hexToU8a} from "@polkadot/util";
+import { stringToHex, hexToU8a } from "@polkadot/util";
 
 
 export default class ControlBase {
@@ -65,7 +65,7 @@ export default class ControlBase {
               if (status.isFinalized) {
                 const extrinsicHash = extrinsic.hash.toHex();
                 resolve({ msg: "ok", data: extrinsicHash });
-              }else{
+              } else {
                 console.log(status);
               }
             } catch (e) {
@@ -73,7 +73,7 @@ export default class ControlBase {
               reject(e.message);
             }
           }
-        ).catch(ee=>{
+        ).catch(ee => {
           reject(ee.message);
         });
       } catch (e) {
@@ -83,12 +83,12 @@ export default class ControlBase {
     });
   }
   async getAccountsFromWallet() {
-    let tmp=await web3Enable("cess");
+    let tmp = await web3Enable("cess");
     const allAccounts = await web3Accounts();
     allAccounts.forEach((t) => {
       // t.setSS58Format(11330);
       t.sourAddress = t.address;
-      t.address = this.formatAccountId(t.address);      
+      t.address = this.formatAccountId(t.address);
     });
     return allAccounts;
   }
@@ -98,7 +98,7 @@ export default class ControlBase {
     const allAccounts = await web3Accounts();
 
     allAccounts.forEach((t) => {
-      // t.setSS58Format(11330);
+      t.setSS58Format(11330);
       t.address = this.formatAccountId(t.address);
     });
     let account = allAccounts.find((t) => t.address == accountId32);
@@ -139,6 +139,7 @@ export default class ControlBase {
     if (!accountId32 || accountId32.length == 64) {
       return accountId32;
     }
+    this.keyring.setSS58Format(11330);
     const pair = this.keyring.addFromAddress(accountId32);
     return pair.address;
   }

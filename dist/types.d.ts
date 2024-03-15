@@ -138,4 +138,6 @@ declare namespace CESS {
             subState?: (status: any) => void,
         ): Promise<any>;
     }
+
+    const defaultConfig: CESSConfig;
 }
