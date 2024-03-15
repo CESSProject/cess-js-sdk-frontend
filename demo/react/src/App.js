@@ -9,7 +9,8 @@ import File from "./views/file";
 import Keyring from "./views/keyring";
 import Util from "./views/util";
 
-const { InitAPI, Common, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI, Common, defaultConfig } from "cess-js-sdk-frontend";
+
 import { sleep } from "./utils/common";
 
 

@@ -32,7 +32,7 @@ function Main({ className }) {
     const onTabChange = (e) => {
         if (e == '0') {
             setCodeStr(`
-const { InitAPI,Common, Authorize, Bucket, File, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new File(api, keyring);
@@ -41,7 +41,7 @@ console.log(ret);
             `);
         }else if (e == '1') {
             setCodeStr(`
-const { InitAPI,Common, Authorize, Bucket, File, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new File(api, keyring);
@@ -50,7 +50,7 @@ console.log(ret);
             `);
         }else if (e == '2') {
             setCodeStr(`
-const { InitAPI,Common, Authorize, Bucket, File, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new File(api, keyring);
@@ -59,7 +59,7 @@ console.log(ret);
             `);
         }else if (e == '3') {
             setCodeStr(`
-const { InitAPI,Common, Authorize, Bucket, File, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new File(api, keyring);
@@ -68,7 +68,7 @@ console.log(ret);
             `);
         }else if (e == '4') {
             setCodeStr(`
-const { InitAPI,Common, Authorize, Bucket, File, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new File(api, keyring);
@@ -77,7 +77,7 @@ console.log(ret);
             `);
         }else if (e == '5') {
             setCodeStr(`
-const { InitAPI,Common, Authorize, Bucket, File, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new File(api, keyring);

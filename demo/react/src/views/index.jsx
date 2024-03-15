@@ -42,7 +42,7 @@ function Main({ className }) {
                 <CodeView json={`npm start`} title="start" />
                 <h2>Init Code</h2>
                 <CodeView json={`
-const { InitAPI, defaultConfig } = require("cess-js-sdk-frontend");
+import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 const { api, keyring } = await InitAPI(defaultConfig);
                 `} title="Init" />
                 <div>The api is "@polkadot/api" ApiPromise ,More document is <a href="https://polkadot.js.org/docs/api/start/create" target="_blank">here</a></div>
