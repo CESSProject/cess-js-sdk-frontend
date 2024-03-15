@@ -4,7 +4,7 @@
  */
 
 import { ApiPromise, WsProvider, Keyring } from "@polkadot/api";
-import defaultConfig from "./default-config";
+import defaultConfig from "./default-config.js";
 
 export default async function init(config = defaultConfig){
   const wsProvider = new WsProvider(config.nodeURL);

@@ -2,8 +2,8 @@
  * @Description: js-sdk for cess storage
  * @Autor: cess lab
  */
-import ControlBase from "../control-base";
-import { formatterSize } from "../util/formatter";
+import ControlBase from "../control-base.js";
+import { formatterSize } from "../util/formatter.js";
 import moment from "moment";
 
 const GB = 1024 * 1024 * 1024;

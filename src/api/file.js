@@ -2,11 +2,11 @@
  * @Description: js-sdk for cess storage
  * @Autor: cess lab
  */
-import ControlBase from "../control-base";
-import * as fileHelper from "../util/file-helper";
+import ControlBase from "../control-base.js";
+import * as fileHelper from "../util/file-helper.js";
 import bs58 from "bs58";
 import { hexToString } from "@polkadot/util";
-import { formatterSize } from "../util/formatter";
+import { formatterSize } from "../util/formatter.js";
 
 export default class File extends ControlBase {
   constructor(api, keyring, gatewayURL = "http://deoss-pub-gateway.cess.cloud/", isDebug = false) {

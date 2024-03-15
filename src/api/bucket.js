@@ -2,8 +2,8 @@
  * @Description: js-sdk for cess storage
  * @Autor: cess lab
  */
-import ControlBase from "../control-base";
-import { formatEntries } from "../util/formatter";
+import ControlBase from "../control-base.js";
+import { formatEntries } from "../util/formatter.js";
 
 export default class Bucket extends ControlBase {
   constructor(api, keyring, isDebug = false) {

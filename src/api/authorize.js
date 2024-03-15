@@ -2,7 +2,7 @@
  * @Description: js-sdk for cess storage
  * @Autor: cess lab
  */
-import ControlBase from "../control-base";
+import ControlBase from "../control-base.js";
 
 export default class Authorize extends ControlBase {
   constructor(api, keyring, isDebug = false) {
