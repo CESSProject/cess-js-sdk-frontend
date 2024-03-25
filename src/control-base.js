@@ -4,6 +4,7 @@
  */
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
 import { stringToHex, hexToU8a } from "@polkadot/util";
+import { encodeAddress } from '@polkadot/util-crypto';
 
 
 export default class ControlBase {
@@ -139,8 +140,10 @@ export default class ControlBase {
     if (!accountId32 || accountId32.length == 64) {
       return accountId32;
     }
-    this.keyring.setSS58Format(11330);
-    const pair = this.keyring.addFromAddress(accountId32);
-    return pair.address;
+    return encodeAddress(accountId32, 11330);
+    // this.keyring.setSS58Format(11330);
+    // const pair = this.keyring.addFromAddress(accountId32);
+    // return pair.address;
+
   }
 };
