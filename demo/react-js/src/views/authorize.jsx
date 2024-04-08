@@ -13,9 +13,11 @@ import JSONView from "../components/JSONView";
 import CodeView from "../components/CodeView";
 
 let cess = null;
+let unsub = null;
 
 function Main({ className }) {
     const navigate = useNavigate();
+    const [isSub, setIsSub] = useState(false);
     const [loading, setLoading] = useState(false);
     const [accounts, setAccounts] = useState([]);
     const [currAddress, setCurrAddress] = useState();
@@ -32,7 +34,7 @@ let cess = new Authorize(api, keyring);
 let ret = await cess.authorityList(currAddress || accounts[0].address);
 console.log(ret);
             `);
-        }else if (e == '2') {
+        } else if (e == '2') {
             setCodeStr(`
 import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
@@ -41,7 +43,7 @@ let cess = new Authorize(api, keyring);
 let ret = await cess.authorize(currAddress || accounts[0].address, defaultConfig.gatewayAddr,subState);
 console.log(ret);
             `);
-        }else if (e == '3') {
+        } else if (e == '3') {
             setCodeStr(`
 import  { InitAPI,Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
 
@@ -83,16 +85,27 @@ console.log(ret);
             setResult(e + ' loading...');
             setLoading(true);
             cess = new Authorize(window.api, window.keyring);
+            let common = new Common(window.api, window.keyring);
             let ret;
             if (e == 'authorityList') {
                 onTabChange("1");
                 ret = await cess.authorityList(currAddress || accounts[0].address);
             } else if (e == 'authorize') {
                 onTabChange("2");
-                ret = await cess.authorize(currAddress || accounts[0].address, defaultConfig.gatewayAddr,subState);
+                ret = await cess.authorize(currAddress || accounts[0].address, defaultConfig.gatewayAddr, subState);
             } else if (e == 'cancelAuthorize') {
                 onTabChange("3");
-                ret = await cess.cancelAuthorize(currAddress || accounts[0].address, defaultConfig.gatewayAddr,subState);
+                ret = await cess.cancelAuthorize(currAddress || accounts[0].address, defaultConfig.gatewayAddr, subState);
+            } else if (e == 'subscribeBalance') {
+                onTabChange("3");
+                unsub = await common.subscribeBalance(currAddress || accounts[0].address, info => {
+                    console.log('sub return', info);
+                    setResult(JSON.stringify(info, null, 2));
+                });
+                setIsSub(true);
+            } else if (e == 'unsubscribeBalance') {
+                unsub();
+                setIsSub(false);
             }
             console.log(ret);
             setResult(JSON.stringify(ret, null, 2));
@@ -109,6 +122,7 @@ console.log(ret);
     useEffect(() => {
         connect();
         onTabChange("1");
+        if (unsub) unsub();
     }, []);
 
     return (
@@ -136,9 +150,11 @@ console.log(ret);
                                 <Button type="primary" onClick={() => handleEvent('authorityList')}>AuthorityList</Button>
                                 <Button type="primary" onClick={() => handleEvent('authorize')}>Authorize</Button>
                                 <Button type="primary" onClick={() => handleEvent('cancelAuthorize')}>CancelAuthorize</Button>
+                                <Button disabled={isSub} type="primary" onClick={() => handleEvent('subscribeBalance')}>SubscribeBalance</Button>
+                                <Button disabled={!isSub} type="primary" onClick={() => handleEvent('unsubscribeBalance')}>Cancel SubscribeBalance</Button>
                             </Space>
-                            <JSONView json={result} />
-                            <CodeView json={codeStr} />
+                                <JSONView json={result} />
+                                <CodeView json={codeStr} />
                             </div>)
                     }
                 </Spin>

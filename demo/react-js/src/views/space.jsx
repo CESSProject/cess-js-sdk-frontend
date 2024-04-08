@@ -13,8 +13,10 @@ import JSONView from "../components/JSONView";
 import CodeView from "../components/CodeView";
 
 let cess = null;
+let unsub = null;
 
 function Main({ className }) {
+    const [isSub, setIsSub] = useState(false);
     const [loading, setLoading] = useState(false);
     const [accounts, setAccounts] = useState([]);
     const [currAddress, setCurrAddress] = useState();
@@ -114,6 +116,17 @@ console.log(ret);
                 } else {
                     setSpaceInfo(null);
                 }
+            } else if (e == 'subscribeUserOwnedSpace') {
+                setSpaceInfo(null);
+                unsub = await cess.subscribeUserOwnedSpace(currAddress || accounts[0].address, info => {
+                    console.log('sub return', info);
+                    setSpaceInfo(info);
+                    setResult(JSON.stringify(info, null, 2));
+                });
+                setIsSub(true);
+            } else if (e == 'unSubscribeUserOwnedSpace') {
+                unsub();
+                setIsSub(false);
             } else if (e == 'expansionSpace') {
                 console.log('expansionSpace', currBucketName);
                 ret = await cess.expansionSpace(currAddress || accounts[0].address, buyGB, subState);
@@ -137,6 +150,11 @@ console.log(ret);
     useEffect(() => {
         connect();
         onTabChange("1");
+        return () => {
+            if (unsub) {
+                unsub();
+            }
+        }
     }, []);
 
     return (
@@ -167,7 +185,9 @@ console.log(ret);
                                     key: '1',
                                     label: 'userOwnedSpace',
                                     children: <div className="tab-content">
-                                        <Button type="primary" onClick={() => handleEvent('userOwnedSpace')}>UserOwnedSpace</Button>
+                                        <Button type="primary" onClick={() => handleEvent('userOwnedSpace')}>UserOwnedSpace</Button> &nbsp;&nbsp;                                        
+                                        <Button type="primary" disabled={isSub} onClick={() => handleEvent('subscribeUserOwnedSpace')}>SubscribeUserOwnedSpace</Button> &nbsp;&nbsp;
+                                        <Button type="primary" disabled={!isSub} onClick={() => handleEvent('unSubscribeUserOwnedSpace')}>Cancel SubscribeUserOwnedSpace</Button> &nbsp;&nbsp;
                                     </div>,
                                 },
                                 {
