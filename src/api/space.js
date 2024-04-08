@@ -3,6 +3,7 @@
  * @Autor: cess lab
  */
 import ControlBase from "../control-base.js";
+import { formatSpaceInfo } from "../util/formatter";
 
 export default class Space extends ControlBase {
   constructor(api, keyring, isDebug = false) {
@@ -28,6 +29,28 @@ export default class Space extends ControlBase {
         errMsg: error.message,
         error: JSON.stringify(error),
       };
+    }
+  }
+
+  async subscribeUserOwnedSpace(accountId32, subFun) {
+    if (!accountId32) throw 'accountId32 is required';
+    if (!subFun) throw 'subFun is required';
+    if (typeof subFun != 'function') throw 'subFun must a function';
+    let blockHeight = 0;
+    let unsubHeader = await this.api.rpc.chain.subscribeNewHeads((lastHeader) => {
+      blockHeight = lastHeader.number;
+    });
+    let unsubSpace = await this.api.query.storageHandler.userOwnedSpace(accountId32, (ret) => {
+      let data = ret.toJSON();
+      if (data) {
+        let human = ret.toHuman();
+        data.state = human.state;
+      }
+      subFun(formatSpaceInfo(data, blockHeight));
+    });
+    return () => {
+      unsubHeader();
+      unsubSpace();
     }
   }
 
