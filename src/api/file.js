@@ -124,8 +124,11 @@ export default class File extends ControlBase {
         Account: accountId32,
         Message: message,
         Signature: sign,
+        FileName:fileObj.name,
+        TotalSize:fileObj.size
       };
-      const ret = await fileHelper.upload(
+      console.log('upload by chunk')
+      const ret = await fileHelper.uploadWithChunk(
         this.gatewayURL,
         fileObj,
         headers,
