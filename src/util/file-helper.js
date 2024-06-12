@@ -104,7 +104,7 @@ export async function uploadWithChunk(url, file, header, log, progressCb) {
     if (!progressCb || typeof progressCb != "function") {
       continue;
     }
-    let percentComplete = Math.ceil((i / chunkCount) * 100);
+    let percentComplete = Math.ceil(((i + 1) / chunkCount) * 100);
     let endTime = new Date().getTime();
     let dTime = (endTime - stime) / 1000;
     let speed = CHUNK_SIZE / dTime;
