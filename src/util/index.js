@@ -89,6 +89,13 @@ function hexStringToUint8Array(hexString) {
 function getDataIfOk(result) {
   return result.msg === "ok" ? result.data : result;
 }
+function sleep(minisec) {
+  return new Promise((resolve, reject) => {
+      setTimeout(function () {
+          resolve();
+      }, minisec);
+  });
+}
 
 export {
   base58ToIP,
@@ -99,4 +106,5 @@ export {
   uint8ArrayToHex,
   uint8ArrayToIP,
   uint8ArrayToString,
+  sleep
 };

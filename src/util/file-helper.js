@@ -3,6 +3,7 @@
  * @Autor: cess lab
  *
  */
+import { sleep } from "./index";
 const CHUNK_SIZE = 1024 * 1024;
 export function download(url, savePath, log) {
   return new Promise(async (resolve, reject) => {
@@ -86,21 +87,39 @@ export async function upload(url, file, header, log, progressCb) {
     }
   });
 }
-export async function uploadWithChunk(url, file, header, log, progressCb) {
+export async function uploadWithChunk(url, file, header, log, progressCb, blockIndex = 0) {
   let size = file.size;
   let state = "uploading";
   // 计算 当前分片的大小
   let chunkCount = Math.ceil(size / CHUNK_SIZE);
   header.BlockNumber = chunkCount;
-  for (let i = 0; i < chunkCount; i++) {
-    header.BlockIndex = i;
-    if (state == 'abort') {
-      return { msg: "abort" };
-    }
+  let res = { msg: '' };
+  for (let i = blockIndex; i < chunkCount; i++) {
+    header.BlockIndex = i+1;
     let start = i * CHUNK_SIZE;
     let end = start + CHUNK_SIZE;
-    let stime = new Date().getTime();
-    await postFile(url, file, header, start, end);
+    let stime;
+    for (let j = 0; j < 3; j++) {
+      if (state == 'abort') {
+        return { msg: "abort" };
+      }
+      while (state == 'pause') {
+        console.log('pause waiting.');
+        // return { msg: "pause", blockIndex: i };
+        await sleep(500);
+      }
+      stime = new Date().getTime();
+      res = await postFile(url, file, header, start, end);
+      if (res.msg == 'ok') {
+        // console.log(res);
+        break;
+      } else {
+        console.log('api error', res.msg, 'retrying...', j);
+      }
+    }
+    if (res.msg != 'ok') {
+      return res;
+    }
     if (!progressCb || typeof progressCb != "function") {
       continue;
     }
@@ -120,11 +139,13 @@ export async function uploadWithChunk(url, file, header, log, progressCb) {
       speed,
       speedUnit,
       xhr: {
-        abort: () => { state = 'abort'; }
+        abort: () => { state = 'abort'; },
+        pause: () => { state = 'pause'; console.log('pausing..'); },
+        resume: () => { state = "uploading"; },
       }
     });
   }
-  return { msg: 'ok' };
+  return res;
 }
 function postFile(url, file, header, start, end) {
   return new Promise(async (resolve, reject) => {
@@ -138,15 +159,15 @@ function postFile(url, file, header, start, end) {
       xhr.setRequestHeader(key, header[key]);
     });
     xhr.onload = function () {
+      let data =  'response' in xhr ? xhr.response : xhr.responseText;
       if (xhr.status === 200) {
-        let data = xhr.response.split('"').join("");
         resolve({ msg: "ok", data });
       } else {
-        reject(Error(xhr.statusText));
+        resolve({ msg: data || xhr.statusText });
       }
     };
-    xhr.onerror = function () {
-      reject(Error("Network Error"));
+    xhr.onerror = function (e) {
+      resolve({ msg: e.response?.data || e.message });
     };
     xhr.send(formData);
   });

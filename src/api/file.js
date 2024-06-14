@@ -101,33 +101,33 @@ export default class File extends ControlBase {
     }
   }
 
-  async uploadFile(accountId32, fileObj, bucketName, progressCb = null) {
+  async uploadFile(accountId32, fileObj, bucketName, progressCb = null, message = null, sign = null) {
     try {
-      const message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
-      const { signU8A } = await this.authSign(accountId32, message);
-      if (!signU8A) {
-        return {
-          msg: "sign error",
-        };
+      if (!message) {
+        message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
+        const { signU8A } = await this.authSign(accountId32, message);
+        if (!signU8A) {
+          return {
+            msg: "sign error",
+          };
+        }
+        sign = bs58.encode(signU8A);
       }
-      const sign = bs58.encode(signU8A);
-
       if (!sign) {
         console.log("sign error");
         return {
           msg: "sign error",
         };
       }
-
       const headers = {
         BucketName: bucketName,
         Account: accountId32,
         Message: message,
         Signature: sign,
-        FileName:fileObj.name,
-        TotalSize:fileObj.size
+        FileName: fileObj.name,
+        TotalSize: fileObj.size
       };
-      console.log('upload by chunk')
+      console.log('upload by chunk to ', this.gatewayURL);
       const ret = await fileHelper.uploadWithChunk(
         this.gatewayURL,
         fileObj,
