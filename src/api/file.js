@@ -124,7 +124,7 @@ export default class File extends ControlBase {
         Account: accountId32,
         Message: message,
         Signature: sign,
-        FileName: fileObj.name,
+        FileName: encodeURIComponent(fileObj.name),
         TotalSize: fileObj.size
       };
       console.log('upload by chunk to ', this.gatewayURL);
