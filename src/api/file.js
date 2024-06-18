@@ -101,7 +101,7 @@ export default class File extends ControlBase {
     }
   }
 
-  async uploadFile(accountId32, fileObj, bucketName, progressCb = null, message = null, sign = null) {
+  async uploadFile(accountId32, fileObj, bucketName, progressCb = null, message = null, sign = null, acc, evmacc) {
     try {
       if (!message) {
         message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
@@ -127,6 +127,12 @@ export default class File extends ControlBase {
         FileName: encodeURIComponent(fileObj.name),
         TotalSize: fileObj.size
       };
+      if (acc) {
+        headers.ACC = acc;
+      }
+      if (evmacc) {
+        headers.ETHACC = evmacc;
+      }
       console.log('upload by chunk to ', this.gatewayURL);
       const ret = await fileHelper.uploadWithChunk(
         this.gatewayURL,
