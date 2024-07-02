@@ -79,17 +79,19 @@ declare namespace CESS {
         subscribeBalance(accountId32: string, subFun: Function): Promise<Function>;
     }
 
-    class Space extends ControlBase {
+    class Territory extends ControlBase {
         constructor(api: ApiPromise, keyring: Keyring, isDebug?: boolean);
-        userOwnedSpace(accountId32: string): Promise<APIReturnedData>;
-        subscribeUserOwnedSpace(accountId32: string, subFun: Function): Promise<Function>;
-        buySpace(accountId32: string, gibCount: number, subState?: (status: any) => void): Promise<any>;
-        expansionSpace(
+        queryMyTerritorys(accountId32: string): Promise<APIReturnedData>;
+        queryTerritoryInfo(accountId32: string, territoryName: string): Promise<APIReturnedData>;
+        createTerritory(accountId32: string, territoryName: string, gibCount: number, subState?: (status: any) => void): Promise<any>;
+        expandingTerritory(
             accountId32: string,
+            territoryName: string,
             gibCount: number,
             subState?: (status: any) => void,
         ): Promise<any>;
-        renewalSpace(accountId32: string, days: number, subState?: (status: any) => void): Promise<any>;
+        renewalTerritory(accountId32: string, territoryName: string, days: number, subState?: (status: any) => void): Promise<any>;
+        renameTerritory(accountId32: string, oldName: string, newName: string, subState?: (status: any) => void): Promise<any>;
     }
 
     class Authorize extends ControlBase {

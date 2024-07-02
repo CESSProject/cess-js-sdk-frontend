@@ -96,6 +96,11 @@ function sleep(minisec) {
       }, minisec);
   });
 }
+async function queryBlockHeight(api) {
+  let ret = await api.query.system.number();
+  let blockHeight = ret.toJSON();
+  return blockHeight;
+}
 
 export {
   base58ToIP,
@@ -106,5 +111,6 @@ export {
   uint8ArrayToHex,
   uint8ArrayToIP,
   uint8ArrayToString,
-  sleep
+  sleep,
+  queryBlockHeight
 };

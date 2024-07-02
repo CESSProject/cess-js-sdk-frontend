@@ -95,7 +95,7 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
   header.BlockNumber = chunkCount;
   let res = { msg: '' };
   for (let i = blockIndex; i < chunkCount; i++) {
-    header.BlockIndex = i+1;
+    header.BlockIndex = i;
     let start = i * CHUNK_SIZE;
     let end = start + CHUNK_SIZE;
     let stime;

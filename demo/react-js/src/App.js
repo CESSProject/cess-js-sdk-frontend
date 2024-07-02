@@ -4,7 +4,7 @@ import Home from "./views/index";
 import Authorize from "./views/authorize";
 import Extension from "./views/extension";
 import Bucket from "./views/bucket";
-import Space from "./views/space";
+import Territory from "./views/territory";
 import File from "./views/file";
 import Keyring from "./views/keyring";
 import Util from "./views/util";
@@ -132,9 +132,9 @@ function App() {
 								label: "Bucket"
 							},
 							{
-								key: "/space",
+								key: "/territory",
 								icon: <DatabaseOutlined />,
-								label: "Space"
+								label: "Territory"
 							},
 							{
 								key: "/file",
@@ -174,7 +174,7 @@ function App() {
 								<Route path="/authorize" element={<Authorize />} />
 								<Route path="/extension" element={<Extension />} />
 								<Route path="/bucket" element={<Bucket />} />
-								<Route path="/space" element={<Space />} />
+								<Route path="/territory" element={<Territory />} />
 								<Route path="/file" element={<File />} />
 								<Route path="/keyring" element={<Keyring />} />
 								<Route path="/util" element={<Util />} />
