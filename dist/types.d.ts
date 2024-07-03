@@ -92,6 +92,7 @@ declare namespace CESS {
         ): Promise<any>;
         renewalTerritory(accountId32: string, territoryName: string, days: number, subState?: (status: any) => void): Promise<any>;
         renameTerritory(accountId32: string, oldName: string, newName: string, subState?: (status: any) => void): Promise<any>;
+        reactivateTerritory(accountId32: string, territoryName: string, days: number, subState?: (status: any) => void): Promise<any>;
     }
 
     class Authorize extends ControlBase {

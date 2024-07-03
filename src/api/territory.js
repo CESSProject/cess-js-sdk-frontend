@@ -75,4 +75,8 @@ export default class Territory extends ControlBase {
         const extrinsic = this.api.tx.storageHandler.territoryRename(oldName, newName);
         return await this.signAndSend(accountId32, extrinsic, subState);
     }
+    async reactivateTerritory(accountId32, territoryName, days, subState = null) {
+        const extrinsic = this.api.tx.storageHandler.reactivateTerritory(territoryName, days);
+        return await this.signAndSend(accountId32, extrinsic, subState);
+    }
 };
