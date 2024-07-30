@@ -63,7 +63,7 @@ import  { InitAPI,Common,Territory, Authorize, Bucket, File, defaultConfig } fro
 
 const { api, keyring } = await InitAPI(defaultConfig);
 let cess = new Territory(api, keyring);
-ret = await cess.createTerritory(currAddress || accounts[0].address,'territoryName', buyGB, subState);
+ret = await cess.createTerritory(currAddress || accounts[0].address,'territoryName', buyGB, days, subState);
 console.log(ret);
             `);
         }
@@ -116,13 +116,13 @@ console.log(ret);
                 } else {
                     setSpaceInfo(null);
                 }
-            }  else if (e == 'expansionSpace') {
+            } else if (e == 'expansionSpace') {
                 // console.log('expansionSpace', currBucketName);
                 ret = await cess.expandingTerritory(currAddress || accounts[0].address, currTerritory, buyGB, subState);
             } else if (e == 'renewalSpace') {
                 ret = await cess.renewalTerritory(currAddress || accounts[0].address, currTerritory, buyGB, subState);
             } else if (e == 'buySpace') {
-                ret = await cess.createTerritory(currAddress || accounts[0].address, territoryName, buyGB, subState);
+                ret = await cess.createTerritory(currAddress || accounts[0].address, territoryName, buyGB, 1, subState);
             } else if (e == 'renameTerritory') {
                 ret = await cess.renameTerritory(currAddress || accounts[0].address, currTerritory, territoryName, subState);
             }

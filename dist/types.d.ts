@@ -83,7 +83,7 @@ declare namespace CESS {
         constructor(api: ApiPromise, keyring: Keyring, isDebug?: boolean);
         queryMyTerritorys(accountId32: string): Promise<APIReturnedData>;
         queryTerritoryInfo(accountId32: string, territoryName: string): Promise<APIReturnedData>;
-        createTerritory(accountId32: string, territoryName: string, gibCount: number, subState?: (status: any) => void): Promise<any>;
+        createTerritory(accountId32: string, territoryName: string, gibCount: number, days: number, subState?: (status: any) => void): Promise<any>;
         expandingTerritory(
             accountId32: string,
             territoryName: string,
