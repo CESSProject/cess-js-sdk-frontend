@@ -99,6 +99,7 @@ const SECS_IN_DAY = 60 * 60 * 24;
 const BLOCK_TIME = 6; // in seconds
 function formatSpaceInfo(obj, blockHeight) {
   const result = { ...obj };
+  result.currBlockHeight = blockHeight;
   result.totalSpaceGib = 0;
   result.totalSpaceStr = "0 GB";
 
