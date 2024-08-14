@@ -4,7 +4,7 @@
  *
  */
 import { sleep } from "./index";
-const CHUNK_SIZE = 1024 * 1024;
+const CHUNK_SIZE = 1024 * 1024 * 10;
 export function download(url, savePath, log) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -37,7 +37,7 @@ export async function upload(url, file, header, log, progressCb) {
       log("uploading to ", url);
 
       const xhr = new XMLHttpRequest();
-      xhr.open("PUT", url, true);
+      xhr.open("PUT", url + "/file", true);
       Object.keys(header).forEach((key) => {
         xhr.setRequestHeader(key, header[key]);
       });
@@ -109,7 +109,7 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
         await sleep(500);
       }
       stime = new Date().getTime();
-      res = await postFile(url, file, header, start, end);
+      res = await postFile(url + "/chunks", file, header, start, end);
       if (res.msg == 'ok') {
         // console.log(res);
         break;
@@ -159,7 +159,7 @@ function postFile(url, file, header, start, end) {
       xhr.setRequestHeader(key, header[key]);
     });
     xhr.onload = function () {
-      let data =  'response' in xhr ? xhr.response : xhr.responseText;
+      let data = 'response' in xhr ? xhr.response : xhr.responseText;
       if (xhr.status === 200) {
         resolve({ msg: "ok", data });
       } else {

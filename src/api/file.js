@@ -73,7 +73,6 @@ export default class File extends ControlBase {
       let ret = await this.api.query.fileBank.file(fileHash);
       let hu = ret.toHuman();
       let data = ret.toJSON();
-      console.log('======in there======', { ret, hu, data });
       if (data && data.owner && data.owner.length > 0) {
         for (let i = 0; i < data.owner.length; i++) {
           let n = hu.owner[i].fileName;
@@ -101,8 +100,38 @@ export default class File extends ControlBase {
       };
     }
   }
+  async queryFileInfo(fileHash) {
+    try {
+      let ret = await this.api.query.fileBank.dealMap(fileHash);
+      if (!ret) {
+        return { msg: 'ok' };
+      }
+      let json = ret.toJSON();
+      let hu = ret.toHuman();
+      let data = {
+        fid: fileHash,
+        fileSize: json.fileSize,
+        fileSizeStr: formatterSize(json.fileSize),
+        user: hu.user.user,
+        bucketName: hu.user.bucketName,
+        fileName: hu.user.fileName,
+        territoryName: hu.user.territoryName,
+      };
+      return {
+        msg: "ok",
+        data,
+      };
+    } catch (error) {
+      console.error(error);
+      return {
+        msg: "ok",
+        errMsg: error.message,
+        error: JSON.stringify(error),
+      };
+    }
+  }
 
-  async uploadFile(accountId32, fileObj, territory, bucketName, progressCb = null, message = null, sign = null, acc, evmacc) {
+  async uploadFile(accountId32, fileObj, territory, progressCb = null, message = null, sign = null, acc, evmacc) {
     try {
       if (!message) {
         message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
@@ -122,7 +151,7 @@ export default class File extends ControlBase {
       }
       const headers = {
         Territory: territory,
-        Bucket: bucketName,
+        Bucket: 'cess',
         Account: accountId32,
         Message: message,
         Signature: sign,
@@ -152,7 +181,7 @@ export default class File extends ControlBase {
 
   async downloadFile(fileHash, saveName) {
     let url = this.gatewayURL + fileHash;
-    let ret = await fileHelper.download(url, saveName, this.log);
+    let ret = await fileHelper.download(url + "/download", saveName, this.log);
     return ret;
   }
 

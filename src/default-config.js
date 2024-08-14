@@ -19,6 +19,6 @@ export default {
     'wss://testnet-rpc.cess.network/ws/',
   ],
   keyringOption: { type: "sr25519", ss58Format: 11330 },
-  gatewayURL: "http://deoss-pub-gateway.cess.cloud/",
-  gatewayAddr: "cXhwBytXqrZLr1qM5NHJhCzEMckSTzNKw17ci2aHft6ETSQm9"
+  gatewayURL: "https://deoss-sgp.cess.network",
+  gatewayAddr: "cXf3X3ugTnivQA9iDRYmLNzxSqybgDtpStBjFcBZEoH33UVaz"
 };
