@@ -21,6 +21,12 @@ yarn add cess-js-sdk-frontend -S
 pnpm add cess-js-sdk-frontend
 ```
 
+### Use with static CDN
+```javascript
+import { InitAPI, Common, Territory, Authorize, File, defaultConfig } from "https://cdn.jsdelivr.net/npm/cess-js-sdk-frontend@0.2.4/dist/index.min.js";
+```
+More info please read demo/static-cdn-js/index.html
+
 ## Example
 
 ```ts

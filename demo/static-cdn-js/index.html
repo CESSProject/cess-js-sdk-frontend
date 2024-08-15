@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>test</title>
+</head>
+
+<body>
+    <div><button id="btn" style="width:200px;height:50px;margin:20px;">test get account from @polkadot/extension-dapp</button></div>
+    <textarea cols="100" rows="30" id="result"></textarea>
+    <script type="module">
+        import { InitAPI, Common, Territory, Authorize, File, defaultConfig } from "https://cdn.jsdelivr.net/npm/cess-js-sdk-frontend@0.2.4/dist/index.min.js";
+        async function main() {
+            document.getElementById("result").value = "loading...";
+            const { api, keyring } = await InitAPI(defaultConfig);
+            let cess = new Common(api, keyring);
+            let accounts = await cess.getAccountsFromWallet();
+            console.log(accounts);
+            document.getElementById("result").value = JSON.stringify(accounts, null, 2);
+        }
+        document.getElementById("btn").onclick = main;
+    </script>
+</body>
+
+</html>
