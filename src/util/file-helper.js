@@ -164,6 +164,7 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
     let end = Math.min(size, start + CHUNK_SIZE);
     let stime;
     header['Content-Range'] = `bytes ${start}-${end}/${size}`;
+    header["Content-Type"] = "application/octet-stream";
     // console.log("size:", size, "blockIndex:", blockIndex);
     for (let j = 0; j < 3; j++) {
       if (state == 'abort') {
@@ -239,7 +240,7 @@ function postFile(url, file, header, start, end) {
     xhr.onerror = function (e) {
       resolve({ msg: e.response?.data || e.message });
     };
-    xhr.send(formData);
+    xhr.send(blobFile);
   });
 }
 function saveFile(blob, name) {
