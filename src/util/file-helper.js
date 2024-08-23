@@ -4,7 +4,7 @@
  *
  */
 import { sleep } from "./index";
-const CHUNK_SIZE = 1024 * 1024 * 10;
+const CHUNK_SIZE = 1024 * 1024 * 5;
 export function download(url, savePath, log) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -87,10 +87,9 @@ export async function upload(url, file, header, log, progressCb) {
     }
   });
 }
-export async function uploadWithChunk(url, file, header, log, progressCb, blockIndex = 0) {
+export async function uploadWithChunkV1(url, file, header, log, progressCb, blockIndex = 0) {
   let size = file.size;
   let state = "uploading";
-  // 计算 当前分片的大小
   let chunkCount = Math.ceil(size / CHUNK_SIZE);
   header.BlockNumber = chunkCount;
   let res = { msg: '' };
@@ -138,6 +137,77 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
       percentComplete,
       speed,
       speedUnit,
+      blockIndex: i,
+      chunkCount,
+      message: header.Message,
+      signedMsg: header.Signature,
+      xhr: {
+        abort: () => { state = 'abort'; },
+        pause: () => { state = 'pause'; console.log('pausing..'); },
+        resume: () => { state = "uploading"; },
+      }
+    });
+  }
+  return res;
+}
+export async function uploadWithChunk(url, file, header, log, progressCb, blockIndex = 0) {
+  let size = file.size;
+  let state = "uploading";
+  let chunkCount = Math.ceil(size / CHUNK_SIZE);
+  // console.log("chunkCount:", chunkCount, "CHUNK_SIZE", CHUNK_SIZE)
+  // header.BlockNumber = chunkCount;
+  // header["Content-Length"] = size;
+  let res = { msg: '' };
+  for (let i = blockIndex; i < chunkCount; i++) {
+    // header.BlockIndex = i;
+    let start = i * CHUNK_SIZE;
+    let end = Math.min(size, start + CHUNK_SIZE);
+    let stime;
+    header['Content-Range'] = `bytes ${start}-${end}/${size}`;
+    // console.log("size:", size, "blockIndex:", blockIndex);
+    for (let j = 0; j < 3; j++) {
+      if (state == 'abort') {
+        return { msg: "abort" };
+      }
+      while (state == 'pause') {
+        // console.log('pause waiting.');
+        // return { msg: "pause", blockIndex: i };
+        await sleep(500);
+      }
+      stime = new Date().getTime();
+      res = await postFile(url + "/resume/" + header.FileName, file, header, start, end);
+      if (res.msg == 'ok') {
+        // console.log(res);
+        break;
+      } else {
+        console.log('api error', res.msg, 'retrying...', j);
+      }
+    }
+    if (res.msg != 'ok') {
+      return res;
+    }
+    if (!progressCb || typeof progressCb != "function") {
+      continue;
+    }
+    let percentComplete = Math.ceil(((i + 1) / chunkCount) * 100);
+    let endTime = new Date().getTime();
+    let dTime = (endTime - stime) / 1000;
+    let speed = CHUNK_SIZE / dTime;
+    speed = speed / 1024;
+    let speedUnit = "KB/s";
+    if (speed > 1024) {
+      speed = speed / 1024;
+      speedUnit = "MB/s";
+    }
+    speed = speed.toFixed(1);
+    progressCb({
+      percentComplete,
+      speed,
+      speedUnit,
+      blockIndex: i,
+      chunkCount,
+      message: header.Message,
+      signedMsg: header.Signature,
       xhr: {
         abort: () => { state = 'abort'; },
         pause: () => { state = 'pause'; console.log('pausing..'); },
@@ -160,7 +230,7 @@ function postFile(url, file, header, start, end) {
     });
     xhr.onload = function () {
       let data = 'response' in xhr ? xhr.response : xhr.responseText;
-      if (xhr.status === 200) {
+      if (xhr.status === 200 || xhr.status === 308) {
         resolve({ msg: "ok", data });
       } else {
         resolve({ msg: data || xhr.statusText });

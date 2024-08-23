@@ -131,9 +131,9 @@ export default class File extends ControlBase {
     }
   }
 
-  async uploadFile(accountId32, fileObj, territory, progressCb = null, message = null, sign = null, acc, evmacc) {
+  async uploadFile(accountId32, fileObj, territory, progressCb = null, message = null, sign = null, acc, evmacc, blockIndex) {
     try {
-      if (!message) {
+      if (!sign) {
         message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
         const { signU8A } = await this.authSign(accountId32, message);
         if (!signU8A) {
@@ -171,6 +171,7 @@ export default class File extends ControlBase {
         headers,
         this.log,
         progressCb,
+        blockIndex
       );
       return ret;
     } catch (e) {
