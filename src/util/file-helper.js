@@ -161,7 +161,7 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
   for (let i = blockIndex; i < chunkCount; i++) {
     // header.BlockIndex = i;
     let start = i * CHUNK_SIZE;
-    let end = Math.min(size, start + CHUNK_SIZE);
+    let end = Math.min(size - 1, start + CHUNK_SIZE - 1);
     let stime;
     header['Content-Range'] = `bytes ${start}-${end}/${size}`;
     header["Content-Type"] = "application/octet-stream";
@@ -176,7 +176,7 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
         await sleep(500);
       }
       stime = new Date().getTime();
-      res = await postFile(url + "/resume/" + header.FileName, file, header, start, end);
+      res = await postFile(url + "/resume/" + header.FileName, file, header, start, end + 1);
       if (res.msg == 'ok') {
         // console.log(res);
         break;
@@ -221,8 +221,8 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
 function postFile(url, file, header, start, end) {
   return new Promise(async (resolve, reject) => {
     const blobFile = file.slice(start, end);
-    const formData = new FormData();
-    formData.append("file", blobFile);
+    // const formData = new FormData();
+    // formData.append("file", blobFile);
 
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", url, true);

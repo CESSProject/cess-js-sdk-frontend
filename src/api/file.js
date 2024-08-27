@@ -164,6 +164,9 @@ export default class File extends ControlBase {
       if (evmacc) {
         headers.ETHACC = evmacc;
       }
+      if (headers.FileName.length > 63) {
+        headers.FileName = headers.FileName.slice(-63);
+      }
       console.log('upload by chunk to ', this.gatewayURL);
       const ret = await fileHelper.uploadWithChunk(
         this.gatewayURL,
