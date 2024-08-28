@@ -39,6 +39,9 @@ function formatterSize(size) {
 }
 
 function formatterSize2(size) {
+  if (!size) {
+    return { size: 0, ext: "B" };
+  }
   let sizeNum = _.isString(size) ? _.toNumber(size) : size;
   const sizeUnits = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 

@@ -146,4 +146,9 @@ export default class ControlBase {
     // return pair.address;
 
   }
+  async queryBlockHeight() {
+    let ret = await this.api.query.system.number();
+    let blockHeight = ret.toJSON();
+    return blockHeight;
+  }
 };

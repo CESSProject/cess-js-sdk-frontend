@@ -4,6 +4,7 @@
  *
  */
 import bs58 from "bs58";
+import moment from "moment";
 
 const uint8ArrayToHex = (bytes) =>
   "0x" + bytes.reduce((str, byte) => str + byte.toString(16).padStart(2, "0"), "");
@@ -91,15 +92,22 @@ function getDataIfOk(result) {
 }
 function sleep(minisec) {
   return new Promise((resolve, reject) => {
-      setTimeout(function () {
-          resolve();
-      }, minisec);
+    setTimeout(function () {
+      resolve();
+    }, minisec);
   });
 }
 async function queryBlockHeight(api) {
   let ret = await api.query.system.number();
   let blockHeight = ret.toJSON();
   return blockHeight;
+}
+async function blockHeightToDatetime(api, blockHeight) {
+  if (!blockHeight) {
+    return moment().format("YYYY-MM-DD HH:mm:ss");
+  }
+  let currBlockHeight = await queryBlockHeight(api);
+  return moment().add(6 * (blockHeight - currBlockHeight), "s").format("YYYY-MM-DD HH:mm:ss");
 }
 
 export {
@@ -112,5 +120,6 @@ export {
   uint8ArrayToIP,
   uint8ArrayToString,
   sleep,
-  queryBlockHeight
+  queryBlockHeight,
+  blockHeightToDatetime
 };
