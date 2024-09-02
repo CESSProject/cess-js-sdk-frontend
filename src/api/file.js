@@ -12,7 +12,7 @@ import moment from "moment";
 
 
 export default class File extends ControlBase {
-  constructor(api, keyring, gatewayURL = "http://deoss-pub-gateway.cess.cloud/", isDebug = false) {
+  constructor(api, keyring, gatewayURL = "http://deoss-sgp.cess.network", isDebug = false) {
     super(api, keyring, isDebug);
     this.gatewayURL = gatewayURL;
   }
@@ -73,6 +73,7 @@ export default class File extends ControlBase {
 
   async queryFileMetadata(fileHash) {
     try {
+      console.log({ fileHash });
       let ret = await this.api.query.fileBank.file(fileHash);
       let hu = ret.toHuman();
       let data = ret.toJSON();
@@ -163,7 +164,7 @@ export default class File extends ControlBase {
   async queryFileInfo(fileHash) {
     let ret = await this.queryFileMetadata(fileHash);
     // console.log("queryFileMetadata", ret);
-    if (ret.msg == 'ok' && ret.data) {      
+    if (ret.msg == 'ok' && ret.data) {
       return ret;
     }
     ret = await this.queryFileDealMap(fileHash);

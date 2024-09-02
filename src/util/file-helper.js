@@ -3,8 +3,8 @@
  * @Autor: cess lab
  *
  */
-import { sleep } from "./index";
-const CHUNK_SIZE = 1024 * 1024 * 5;
+import { sleep } from "./index.js";
+const CHUNK_SIZE = 1024 * 1024 * 50;
 export function download(url, savePath, log) {
   return new Promise(async (resolve, reject) => {
     try {

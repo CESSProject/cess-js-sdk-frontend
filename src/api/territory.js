@@ -4,7 +4,7 @@
  */
 import ControlBase from "../control-base.js";
 import { formatEntries, formatSpaceInfo } from "../util/formatter.js";
-const { queryBlockHeight } = require("../util/index.js");
+import { queryBlockHeight } from "../util/index.js";
 
 export default class Territory extends ControlBase {
     constructor(api, keyring, isDebug = false) {

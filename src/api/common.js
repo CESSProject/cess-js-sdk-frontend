@@ -3,7 +3,7 @@
  * @Autor: cess lab
  */
 import ControlBase from "../control-base.js";
-import { formatSpaceInfo } from "../util/formatter";
+import { formatSpaceInfo } from "../util/formatter.js";
 
 export default class Common extends ControlBase {
   constructor(api, keyring, isDebug = false) {

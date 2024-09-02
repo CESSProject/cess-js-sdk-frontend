@@ -133,7 +133,7 @@ declare namespace CESS {
         uploadFile(
             accountId32: string,
             fileObj: any,
-            bucketName: string,
+            territoryName: string,
             progressCb?: (status: any) => void
         ): Promise<any>;
         downloadFile(fileHash: string, saveName: string): Promise<any>;
