@@ -4,7 +4,7 @@
  *
  */
 import { sleep } from "./index.js";
-const CHUNK_SIZE = 1024 * 1024 * 50;
+const CHUNK_SIZE = 1024 * 1024 * 5;
 export function download(url, savePath, log) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -187,9 +187,6 @@ export async function uploadWithChunk(url, file, header, log, progressCb, blockI
     if (res.msg != 'ok') {
       return res;
     }
-    if (!progressCb || typeof progressCb != "function") {
-      continue;
-    }
     let percentComplete = Math.ceil(((i + 1) / chunkCount) * 100);
     let endTime = new Date().getTime();
     let dTime = (endTime - stime) / 1000;
@@ -231,11 +228,12 @@ function postFile(url, file, header, start, end) {
     });
     xhr.onload = function () {
       let data = 'response' in xhr ? xhr.response : xhr.responseText;
-      if (xhr.status === 200 || xhr.status === 308) {
-        resolve({ msg: "ok", data });
-      } else {
-        resolve({ msg: data || xhr.statusText });
-      }
+      try {
+        if (typeof data == 'string') {
+          data = JSON.parse(data);
+        }
+      } catch (e) { }
+      resolve(data);
     };
     xhr.onerror = function (e) {
       resolve({ msg: e.response?.data || e.message });
@@ -260,4 +258,21 @@ function saveFile(blob, name) {
     a.remove();
     window?.URL?.revokeObjectURL(blob);//because window is null in the next.js
   }
+}
+export async function deleteFile(url, header) {
+  return new Promise(async (resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("DELETE", url, true);
+    Object.keys(header).forEach((key) => {
+      xhr.setRequestHeader(key, header[key]);
+    });
+    xhr.onload = function () {
+      let data = 'response' in xhr ? xhr.response : xhr.responseText;
+      resolve({ msg: xhr.status == 200 ? 'ok' : data });
+    };
+    xhr.onerror = function (e) {
+      resolve({ msg: e.response?.data || e.message });
+    };
+    xhr.send();
+  });
 }

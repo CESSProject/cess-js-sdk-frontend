@@ -5,7 +5,7 @@
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
 import { stringToHex, hexToU8a } from "@polkadot/util";
 import { encodeAddress } from '@polkadot/util-crypto';
-
+import bs58 from "bs58";
 
 export default class ControlBase {
   constructor(api, keyring, isDebug = false) {
@@ -97,6 +97,11 @@ export default class ControlBase {
   async authSign(accountId32, msg) {
     await web3Enable("cess");
     const allAccounts = await web3Accounts();
+    let ret = {
+      signU8A: null,
+      signStr: null,
+      bs58Str: null
+    };
 
     allAccounts.forEach((t) => {
       // t.setSS58Format(11330);
@@ -107,18 +112,12 @@ export default class ControlBase {
       account = allAccounts[0];
       console.log("account not found:", allAccounts);
       // return { msg: "account not found!" };
-      return {
-        signU8A: null,
-        signStr: null
-      };
+      return ret;
     }
     const injector = await web3FromSource(account.meta.source);
     const signRaw = injector?.signer?.signRaw;
     if (!signRaw) {
-      return {
-        signU8A: null,
-        signStr: null
-      };
+      return ret;
     }
     // after making sure that signRaw is defined
     // we can use it to sign our message
@@ -127,13 +126,11 @@ export default class ControlBase {
       data: stringToHex(msg),
       type: "bytes",
     });
+    ret.signStr = signature;
     // console.log({ signature });
-    let signU8A = hexToU8a(signature);
-
-    return {
-      signU8A,
-      signStr: signature
-    };
+    ret.signU8A = signature ? hexToU8a(signature) : "";
+    ret.bs58Str = ret.signU8A ? bs58.encode(ret.signU8A) : "";
+    return ret;
   }
 
   formatAccountId(accountId32) {

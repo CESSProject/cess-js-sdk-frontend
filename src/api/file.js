@@ -190,6 +190,10 @@ export default class File extends ControlBase {
           msg: "sign error",
         };
       }
+
+      if (!progressCb || typeof progressCb != "function") {
+        progressCb = () => { };
+      }
       const headers = {
         Territory: territory,
         Bucket: 'cess',
@@ -208,6 +212,20 @@ export default class File extends ControlBase {
       if (headers.FileName.length > 63) {
         headers.FileName = headers.FileName.slice(-63);
       }
+      progressCb({
+        percentComplete: 0,
+        speed: 0,
+        speedUnit: "KB/s",
+        blockIndex: 0,
+        chunkCount: 10,
+        message: message,
+        signedMsg: sign,
+        xhr: {
+          abort: () => { },
+          pause: () => { },
+          resume: () => { },
+        }
+      });
       console.log('upload by chunk to ', this.gatewayURL);
       const ret = await fileHelper.uploadWithChunk(
         this.gatewayURL,
@@ -233,5 +251,42 @@ export default class File extends ControlBase {
   async deleteFile(accountId32, fileHash, subState = null) {
     const extrinsic = this.api.tx.fileBank.deleteFile(accountId32, fileHash);
     return await this.signAndSend(accountId32, extrinsic, subState);
+  }
+  async deleteFileByGateway(accountId32, fid, message = null, sign = null, acc, evmacc) {
+    try {
+      if (!sign) {
+        message = "<Bytes>cess-js-sdk-frontend-" + new Date().valueOf() + "</Bytes>";
+        const { bs58Str } = await this.authSign(accountId32, message);
+        if (!bs58Str) {
+          return {
+            msg: "sign error",
+          };
+        }
+        sign = bs58Str;
+      }
+      if (!sign) {
+        console.log("sign error");
+        return {
+          msg: "sign error",
+        };
+      }
+      const headers = {
+        Account: accountId32,
+        Message: message,
+        Signature: sign
+      };
+      if (acc) {
+        headers.ACC = acc;
+      }
+      if (evmacc) {
+        headers.ETHACC = evmacc;
+      }
+      console.log('delete file from gateway ', this.gatewayURL);
+      const ret = await fileHelper.deleteFile(this.gatewayURL + '/file/' + fid, headers);
+      return ret;
+    } catch (e) {
+      console.log(e);
+      return { msg: "error", error: e };
+    }
   }
 };
