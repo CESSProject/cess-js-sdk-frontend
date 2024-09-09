@@ -3,7 +3,7 @@
  * @Autor: cess lab
  */
 import { web3Accounts, web3Enable, web3FromAddress, web3FromSource } from '@polkadot/extension-dapp';
-import { stringToHex, hexToU8a } from "@polkadot/util";
+import { stringToHex, hexToU8a, u8aToHex } from "@polkadot/util";
 import { encodeAddress } from '@polkadot/util-crypto';
 import bs58 from "bs58";
 
@@ -123,7 +123,7 @@ export default class ControlBase {
     // we can use it to sign our message
     const { signature } = await signRaw({
       address: account.address,
-      data: stringToHex(msg),
+      data: typeof msg === 'string'? stringToHex(msg): u8aToHex(msg),
       type: "bytes",
     });
     ret.signStr = signature;
