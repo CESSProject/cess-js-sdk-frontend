@@ -53,7 +53,7 @@ const { api, keyring } = await InitAPI(defaultConfig);
                 </div>
                 <CodeView json={`
 {
-    nodeURL: "wss://testnet-rpc1.cess.cloud/ws/", //Rpc url
+    nodeURL: "wss://testnet-rpc.cess.network/ws/", //Rpc url
     keyringOption: { type: "sr25519", ss58Format: 11330 }, //for keyring 
     gatewayURL: "http://deoss-pub-gateway.cess.cloud/", //the default gateway url
     gatewayAddr: "cXhwBytXqrZLr1qM5NHJhCzEMckSTzNKw17ci2aHft6ETSQm9", //the gateway accountId
