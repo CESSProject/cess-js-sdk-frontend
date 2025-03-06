@@ -244,7 +244,7 @@ export default class File extends ControlBase {
 
   async downloadFile(fileHash, saveName) {
     let url = this.gatewayURL + fileHash;
-    let ret = await fileHelper.download(url + "/download", saveName, this.log);
+    let ret = await fileHelper.download(url + "/file/download", saveName, this.log);
     return ret;
   }
 
