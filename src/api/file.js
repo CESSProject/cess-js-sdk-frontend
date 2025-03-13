@@ -29,7 +29,6 @@ export default class File extends ControlBase {
           let owe = tmp.data.owner.find((t) => t.user == accountId32);
           if (owe) {
             file.fileName = owe.fileName;
-            file.bucketName = owe.bucketName;
           }
           file.fileSize = tmp.data?.fileSize;
           file.fileSizeStr = formatterSize(tmp.data?.fileSize);
@@ -100,9 +99,7 @@ export default class File extends ControlBase {
             data.title = n;
             data.fileName = n;
           }
-          data.owner[i].bucketName = hu.owner[i].bucketName;
           data.owner[i].territoryName = territoryName;
-          data.bucketName = hu.owner[i].bucketName;
           data.territoryName = territoryName;
         }
         data.fid = fileHash;
@@ -140,7 +137,6 @@ export default class File extends ControlBase {
         fileSize: json?.fileSize,
         fileSizeStr: formatterSize(json?.fileSize),
         owner: [hu.user],
-        bucketName: hu.user?.bucketName,
         fileName: hu.user?.fileName,
         title: hu.user?.fileName,
         territoryName: hu.user?.territoryName,
@@ -196,7 +192,6 @@ export default class File extends ControlBase {
       }
       const headers = {
         Territory: territory,
-        Bucket: 'cess',
         Account: accountId32,
         Message: message,
         Signature: sign,

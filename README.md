@@ -31,7 +31,7 @@ More info please read demo/static-cdn-js/index.html
 
 ```ts
 
-import { Space, InitAPI, Common, Authorize, Bucket, File, defaultConfig } from "cess-js-sdk-frontend";
+import { Space, InitAPI, Common, Authorize, File, defaultConfig } from "cess-js-sdk-frontend";
 
 async function main() {
 	const { api, keyring } = await InitAPI(defaultConfig);
@@ -145,19 +145,11 @@ function buildConfig(nodeURL, gatewayURL, keyringOption) {
 - `authorize(mnemonicOrAccountId32: string, operator: string): Promise<any>`
 - `cancelAuthorize(mnemonicOrAccountId32: string, operator: string): Promise<any>`
 
-### Bucket
-
-- `queryBucketNames(accountId32: string): Promise<APIReturnedData>`
-- `queryBucketList(accountId32: string): Promise<APIReturnedData>`
-- `queryBucketInfo(accountId32: string, name: string): Promise<APIReturnedData>`
-- `createBucket(mnemonicOrAccountId32: string, accountId32: string, name: string): Promise<any>`
-- `deleteBucket(mnemonicOrAccountId32: string, accountId32: string, name: string): Promise<any>`
-
 ### File
 
 - `queryFileListFull(accountId32: string): Promise<APIReturnedData>`
 - `queryFileList(accountId32: string): Promise<APIReturnedData>`
 - `queryFileMetadata(fileHash: string): Promise<APIReturnedData>`
-- `uploadFile(mnemonicOrAccountId32: string, accountId32: string, filePath: string, bucketName: string): Promise<any>`
+- `uploadFile(mnemonicOrAccountId32: string, accountId32: string, filePath: string): Promise<any>`
 - `downloadFile(fileHash: string, savePath: string): Promise<any>`
 - `deleteFile(mnemonicOrAccountId32: string, accountId32: string, fileHashArray: string[]): Promise<any>`

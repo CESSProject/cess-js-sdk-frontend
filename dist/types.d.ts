@@ -106,25 +106,6 @@ declare namespace CESS {
         ): Promise<any>;
     }
 
-    class Bucket extends ControlBase {
-        constructor(api: ApiPromise, keyring: Keyring, isDebug?: boolean);
-        queryBucketNames(accountId32: string): Promise<APIReturnedData>;
-        queryBucketList(accountId32: string): Promise<APIReturnedData>;
-        queryBucketInfo(accountId32: string, name: string): Promise<APIReturnedData>;
-        createBucket(
-            accountId32: string,
-            accountId32: string,
-            name: string,
-            subState?: (status: any) => void,
-        ): Promise<any>;
-        deleteBucket(
-            accountId32: string,
-            accountId32: string,
-            name: string,
-            subState?: (status: any) => void,
-        ): Promise<any>;
-    }
-
     class File extends ControlBase {
         constructor(api: ApiPromise, keyring: Keyring, gatewayURL?: string, isDebug?: boolean);
         queryFileListFull(accountId32: string): Promise<APIReturnedData>;
